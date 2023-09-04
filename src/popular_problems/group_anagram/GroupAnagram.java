@@ -21,7 +21,5 @@ public class GroupAnagram {
         }
         res.addAll(map.values());
         return res;
-
-
     }
 }
