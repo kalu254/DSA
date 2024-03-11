@@ -1,5 +1,10 @@
 package core_dsa.bst;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 class BST {
     public class Node {
         private int value;
@@ -16,7 +21,7 @@ class BST {
         }
     }
 
-    private Node root;
+    public Node root;
 
     public BST() {
 
@@ -100,5 +105,37 @@ class BST {
         display(node.left, "Left child of " + node.value + " : ");
         display(node.right, "Right child of " + node.value + " : ");
     }
+
+    public  List<List<Integer>> bfs(Node root) {
+        List<List<Integer>> values = new ArrayList<>();
+
+        if (root == null) {
+            return values;
+        }
+
+        Queue<Node> helperQueue = new LinkedList<>();
+        helperQueue.offer(root);
+
+        while (!helperQueue.isEmpty()) {
+            int size = helperQueue.size();
+            List<Integer> currentValues = new ArrayList<>(size);
+            for (int i = 0; i < size; i++) {
+                Node p = helperQueue.poll();
+                currentValues.add(p.value);
+                if (p.left != null) {
+                    helperQueue.offer(p.left);
+                }
+                if (p.right != null){
+                    helperQueue.offer(p.right);
+                }
+            }
+
+            values.add(currentValues);
+        }
+        return values;
+    }
+
+
+
 
 }

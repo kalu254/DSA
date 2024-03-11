@@ -9,27 +9,39 @@ public class LongestSubstring {
 
 
     public static void main(String[] args) {
-        System.out.println(lsb("abcabcbb"));
+        System.out.println(lsb("pwwkew"));
     }
 
-    public static int lengthOfLongestSubstring(String s) {
-        List<Character> substringL = new ArrayList<>();
-        int largestlength = 0;
-        for (int right = 0; right < s.length(); right++) {
-            if (substringL.contains(s.charAt(right))) {
-                // get the index of the char
-                int index = substringL.indexOf(s.charAt(right));
-                substringL.remove(index);
-                if (index > 0) substringL.subList(0, index).clear();
+    public int lengthOfLongestSubstring(String s) {
+
+        Set uniqueElements = new HashSet<Character>();
+
+        int longestSubString = 0;
+        int currentLongestSubstring = 0;
+
+        int fp=0;
+        int sp=0;
+
+        while(sp < s.length()){
+            if(uniqueElements.contains(s.charAt(sp))){
+                uniqueElements.remove(s.charAt(sp));
+                fp++;
+            }else {
+                uniqueElements.add(s.charAt(sp));
+                sp++;
             }
-            substringL.add(s.charAt(right));
-            largestlength = Math.max(largestlength, substringL.size());
+
+            longestSubString = Math.max(longestSubString, (sp-fp)) ;
         }
-        return largestlength;
+
+        return longestSubString;
     }
 
 
     public static int lsb(String s) {
+
+        if (s.isEmpty()) return 0;
+
         Set uniqueElements = new HashSet<String>();
         int fP = 0;
         int sP = 0;
